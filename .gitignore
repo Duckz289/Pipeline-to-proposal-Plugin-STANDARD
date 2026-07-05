@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+.mcp.local.json
+*.sqlite
+*.sqlite3
+*.db
+logs/
+tmp/

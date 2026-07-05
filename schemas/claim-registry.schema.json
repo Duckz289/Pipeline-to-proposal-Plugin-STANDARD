@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClaimRegistry",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "claim_id",
+      "claim_text",
+      "claim_type",
+      "source",
+      "buyer_facing",
+      "status",
+      "required_action"
+    ],
+    "properties": {
+      "claim_id": {
+        "type": "string",
+        "description": "Stable local ID such as C001, C002."
+      },
+      "claim_text": {
+        "type": "string"
+      },
+      "claim_type": {
+        "type": "string",
+        "enum": [
+          "named_person",
+          "company_fact",
+          "offer_fact",
+          "proof",
+          "roi",
+          "quote",
+          "inferred_pain"
+        ]
+      },
+      "source": {
+        "type": "string",
+        "enum": ["crm", "internal", "public", "user", "inferred", "none"]
+      },
+      "source_detail": {
+        "type": "string",
+        "description": "Record ID, URL, file name, user message summary, or inference basis."
+      },
+      "buyer_facing": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["supported", "user_provided", "inferred", "unsupported", "removed"]
+      },
+      "required_action": {
+        "type": "string",
+        "enum": ["keep", "label", "ask_user", "remove"]
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "buyer_facing": { "const": true },
+            "status": { "const": "unsupported" }
+          },
+          "required": ["buyer_facing", "status"]
+        },
+        "then": {
+          "properties": {
+            "required_action": { "const": "remove" }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "buyer_facing": { "const": true },
+            "status": { "const": "inferred" }
+          },
+          "required": ["buyer_facing", "status"]
+        },
+        "then": {
+          "properties": {
+            "required_action": { "enum": ["label", "ask_user", "remove"] }
+          }
+        }
+      }
+    ]
+  }
+}
+

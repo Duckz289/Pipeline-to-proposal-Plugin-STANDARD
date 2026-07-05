@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PipelineContext",
+  "type": "object",
+  "required": ["request", "company", "requested_outputs", "confidence", "missing_info"],
+  "properties": {
+    "request": {
+      "type": "object",
+      "properties": {
+        "raw": { "type": "string" },
+        "language": { "type": "string" },
+        "sales_stage": { "type": "string" },
+        "write_back_requested": { "type": "boolean" },
+        "run_id": { "type": "string" },
+        "resume_token": { "type": "string" }
+      }
+    },
+    "company": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "domain": { "type": "string" },
+        "industry": { "type": "string" },
+        "size": { "type": "string" },
+        "hq": { "type": "string" },
+        "crm_status": { "type": "string" }
+      }
+    },
+    "qualification": {
+      "type": "object",
+      "description": "Light ICP fit check before spending effort on deep research or long artifacts.",
+      "properties": {
+        "fit_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "fit_tier": { "type": "string", "enum": ["strong", "possible", "weak", "unknown"] },
+        "reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "disqualifiers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "recommendation": {
+          "type": "string",
+          "enum": ["continue", "light_research_only", "ask_user", "skip"]
+        }
+      }
+    },
+    "offer": {
+      "type": "object",
+      "properties": {
+        "product_or_service": { "type": "string" },
+        "package": { "type": "string" },
+        "pricing": { "type": "string" },
+        "proof_points": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "title": { "type": "string" },
+          "role_in_deal": { "type": "string" },
+          "source": { "type": "string" },
+          "confidence": { "type": "string" }
+        }
+      }
+    },
+    "pain_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pain": { "type": "string" },
+          "evidence": { "type": "string" },
+          "source": { "type": "string" },
+          "confidence": { "type": "string" }
+        }
+      }
+    },
+    "engagement_signals": {
+      "type": "object",
+      "description": "Optional relationship and tracking signals that change next-step timing.",
+      "properties": {
+        "last_interaction_date": { "type": "string" },
+        "proposal_sent_date": { "type": "string" },
+        "email_opens": { "type": "integer", "minimum": 0 },
+        "link_clicks": { "type": "integer", "minimum": 0 },
+        "proposal_views": { "type": "integer", "minimum": 0 },
+        "reply_sentiment": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "requested_outputs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["prospect_brief", "outreach_email", "proposal", "next_step", "crm_note"]
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "type": { "type": "string" },
+          "url_or_record": { "type": "string" },
+          "used_for": { "type": "string" }
+        }
+      }
+    },
+    "source_health": {
+      "type": "array",
+      "description": "Operational status of attempted local memory, CRM, and research tools.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["available", "missing", "unavailable", "auth_error", "rate_limited", "timeout", "failed", "not_attempted"]
+          },
+          "impact": { "type": "string" },
+          "fallback_used": { "type": "string" }
+        }
+      }
+    },
+    "context_loaded": {
+      "description": "Files, summaries, and optional tools loaded for this run.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "reason", "layer"],
+        "properties": {
+          "name": { "type": "string" },
+          "reason": { "type": "string" },
+          "layer": { "type": "string", "enum": ["required", "conditional", "tool", "summary"] },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "context_budget": {
+      "description": "Token/context controls for this run.",
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["compact", "standard", "expanded"]
+        },
+        "active_worker": { "type": "string" },
+        "loaded_file_count": { "type": "integer", "minimum": 0 },
+        "source_snippet_count": { "type": "integer", "minimum": 0 },
+        "estimated_input_tokens": { "type": "integer", "minimum": 0 },
+        "estimated_output_tokens": { "type": "integer", "minimum": 0 },
+        "evicted_to_local_summary": { "type": "boolean" }
+      }
+    },
+    "local_memory_updates": {
+      "description": "Suggested or saved local markdown memory updates.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["target", "summary"],
+        "properties": {
+          "target": { "type": "string" },
+          "summary": { "type": "string" },
+          "status": { "type": "string", "enum": ["suggested", "saved", "failed", "not_attempted"] }
+        }
+      }
+    },
+    "state": {
+      "description": "Resumable state snapshot. Must follow schemas/pipeline-state.schema.json when persisted.",
+      "type": "object",
+      "properties": {
+        "run_id": { "type": "string" },
+        "current_step": { "type": "string" },
+        "checkpoint_id": { "type": "string" },
+        "persistence_status": {
+          "type": "string",
+          "enum": ["saved_local", "suggested_local", "failed", "not_attempted"]
+        },
+        "context_summary": { "type": "string" }
+      }
+    },
+    "research_data_level": {
+      "description": "Research quality level from policies/research-data-policy.md.",
+      "type": "string",
+      "enum": ["L3", "L2", "L1", "L0"]
+    },
+    "local_crm_notes": {
+      "description": "CRM notes or task drafts prepared for copy-paste.",
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "validation_findings": {
+      "type": "array",
+      "description": "Reviewer findings for unsupported or risky claims.",
+      "items": {
+        "type": "object",
+        "required": ["claim", "status", "required_action"],
+        "properties": {
+          "claim": { "type": "string" },
+          "claim_type": {
+            "type": "string",
+            "enum": ["named_person", "company_fact", "offer_fact", "proof", "roi", "quote", "inferred_pain"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["supported", "user_provided", "inferred", "unsupported", "removed"]
+          },
+          "required_action": { "type": "string" }
+        }
+      }
+    },
+    "claim_registry": {
+      "description": "Structured risky-claim registry. Must match schemas/claim-registry.schema.json.",
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "not_found": {
+      "description": "Important searched-for items that were not found or could not be verified.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item", "searched_sources", "result"],
+        "properties": {
+          "item": { "type": "string" },
+          "searched_sources": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "result": { "type": "string" },
+          "impact": { "type": "string" }
+        }
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "missing_info": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    }
+  }
+}

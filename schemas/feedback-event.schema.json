@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FeedbackEvent",
+  "type": "object",
+  "required": ["event_id", "event_type", "source", "created_at"],
+  "properties": {
+    "event_id": { "type": "string" },
+    "run_id": { "type": "string" },
+    "deal_id": { "type": "string" },
+    "company_name": { "type": "string" },
+    "artifact_type": {
+      "type": "string",
+      "enum": ["email", "proposal", "linkedin", "call_opener", "next_step", "crm_note"]
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "sent",
+        "opened",
+        "clicked",
+        "replied",
+        "meeting_booked",
+        "proposal_viewed",
+        "advanced",
+        "stalled",
+        "won",
+        "lost",
+        "user_edit",
+        "objection"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "enum": ["user", "crm", "email", "calendar", "proposal_tool", "analytics"]
+    },
+    "segment": { "type": "string" },
+    "notes": { "type": "string" },
+    "recommended_knowledge_update": { "type": "string" },
+    "approval_status": {
+      "type": "string",
+      "enum": ["not_required", "pending", "approved", "rejected"]
+    },
+    "created_at": { "type": "string" }
+  }
+}
+

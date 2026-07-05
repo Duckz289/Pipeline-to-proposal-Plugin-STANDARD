@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PipelineState",
+  "type": "object",
+  "required": ["run_id", "company_name", "current_step", "status", "updated_at"],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "description": "Stable ID for the pipeline run."
+    },
+    "deal_id": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "current_step": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "qualification",
+        "research",
+        "draft_email",
+        "draft_proposal",
+        "next_step",
+        "review",
+        "verification_checkpoint",
+        "approval",
+        "write_back",
+        "complete"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "waiting_for_user", "blocked", "complete", "abandoned"]
+    },
+    "checkpoint_id": {
+      "type": "string"
+    },
+    "requested_outputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "context_summary": {
+      "type": "string",
+      "description": "Compact summary sufficient to resume without replaying the whole chat."
+    },
+    "missing_info": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_health": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "claim_registry": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "artifact_type": { "type": "string" },
+          "artifact_id": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "persistence_status": {
+      "type": "string",
+      "enum": ["persisted", "not_configured", "failed", "not_attempted"]
+    },
+    "updated_at": {
+      "type": "string"
+    }
+  }
+}
+

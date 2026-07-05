@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProspectBrief",
+  "type": "object",
+  "required": ["company_name", "crm_status", "company_snapshot", "pain_signals", "recommended_angle", "confidence"],
+  "properties": {
+    "company_name": { "type": "string" },
+    "industry": { "type": "string" },
+    "size": { "type": "string" },
+    "hq": { "type": "string" },
+    "crm_status": { "type": "string" },
+    "qualification": {
+      "type": "object",
+      "properties": {
+        "fit_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "fit_tier": { "type": "string", "enum": ["strong", "possible", "weak", "unknown"] },
+        "recommendation": { "type": "string" },
+        "reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "company_snapshot": { "type": "string" },
+    "relationship_history": { "type": "string" },
+    "pain_signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "signal": { "type": "string" },
+          "evidence": { "type": "string" },
+          "source": { "type": "string" },
+          "confidence": { "type": "string" }
+        }
+      }
+    },
+    "decision_makers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "title": { "type": "string" },
+          "priority": { "type": "string" },
+          "source": { "type": "string" },
+          "confidence": { "type": "string" }
+        }
+      }
+    },
+    "recommended_angle": { "type": "string" },
+    "suggested_next_step": { "type": "string" },
+    "missing_info": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sources": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_health": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "not_found": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item", "searched_sources", "result"],
+        "properties": {
+          "item": { "type": "string" },
+          "searched_sources": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "result": { "type": "string" },
+          "impact": { "type": "string" }
+        }
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    }
+  }
+}

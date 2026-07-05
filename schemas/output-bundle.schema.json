@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PipelineOutputBundle",
+  "type": "object",
+  "required": ["company_name", "completion_level", "confidence", "missing_info", "approval_needed_before"],
+  "properties": {
+    "company_name": { "type": "string" },
+    "completion_level": {
+      "type": "string",
+      "enum": ["full", "draft", "skeleton"]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "prospect_brief": { "type": "string" },
+    "qualification_summary": { "type": "string" },
+    "outreach_email": { "type": "string" },
+    "proposal": { "type": "string" },
+    "next_step": { "type": "string" },
+    "crm_note_draft": { "type": "string" },
+    "sources_used": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_health": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "context_loaded": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "context_budget": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["compact", "standard", "expanded"]
+        },
+        "active_worker": { "type": "string" },
+        "snapshot_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "evicted_to_snapshot": { "type": "boolean" }
+      }
+    },
+    "validation_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim", "status", "required_action"],
+        "properties": {
+          "claim": { "type": "string" },
+          "claim_type": {
+            "type": "string",
+            "enum": ["named_person", "company_fact", "offer_fact", "proof", "roi", "quote", "inferred_pain"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["supported", "user_provided", "inferred", "unsupported", "removed"]
+          },
+          "required_action": {
+            "type": "string",
+            "enum": ["keep", "label", "ask_user", "remove"]
+          }
+        }
+      }
+    },
+    "claim_registry": {
+      "description": "Structured claim registry for buyer-facing and high-risk claims.",
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "not_found": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "missing_info": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "approval_needed_before": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "suggested_next_commands": {
+      "description": "Suggested next commands in the same language as the current session.",
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
