@@ -1,6 +1,6 @@
 # Local State
 
-This folder is the local memory layer for the free plugin.
+This folder is the local memory layer for the plugin.
 
 Use it when the host can read/write files in the plugin workspace.
 

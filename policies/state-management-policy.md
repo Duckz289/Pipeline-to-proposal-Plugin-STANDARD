@@ -8,7 +8,7 @@ freshness_warning_days: 90
 
 # State Management Policy
 
-Chat context is temporary. This free local-first plugin uses markdown memory instead of hosted
+Chat context is temporary. This local-first plugin uses markdown memory instead of hosted
 infrastructure.
 
 ## State Contract

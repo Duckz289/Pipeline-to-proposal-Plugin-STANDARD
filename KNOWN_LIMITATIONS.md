@@ -1,6 +1,6 @@
 # Known Limitations
 
-This is a free local-first plugin. It avoids hosted infrastructure and external server maintenance.
+This is a local-first plugin. It avoids hosted infrastructure and external server maintenance.
 
 ## Public Research
 

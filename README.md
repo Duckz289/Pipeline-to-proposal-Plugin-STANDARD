@@ -59,7 +59,7 @@ Plugin sẽ tự:
 
 ## Local Memory
 
-Bản free này không duy trì server ngoài, nên memory dùng file local:
+Plugin lưu memory bằng file local:
 
 - `local-state/product-context.md`: offer, pricing, ICP, proof, CTA.
 - `local-state/deals/index.md`: bảng xem nhanh các deal.
