@@ -28,4 +28,5 @@ Update `local-state/product-context.md` and `knowledge/product-context-template.
 4. Search for accidental server/infrastructure references in active docs.
 5. Update `CHANGELOG.md`.
 6. Bump `.claude-plugin/plugin.json` version.
-7. Package a new `.zip` / `.plugin` only when needed; do not delete older packages.
+7. Package a new `.zip` / `.plugin` with `scripts/package-release.ps1` so archive entries use `/`, not `\`.
+8. Do not delete older packages.

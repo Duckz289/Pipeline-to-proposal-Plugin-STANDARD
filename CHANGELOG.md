@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.4
+
+- Promoted the current local-first workflow as the official source version for this folder.
+- Kept release packaging on the normalized forward-slash archive format for `.plugin` and `.zip`.
+- Refined product description for release metadata and marketplace-style presentation.
+
 ## 0.4.3
 
 - Changed local memory priority to direct markdown edits first, PowerShell script second, compact

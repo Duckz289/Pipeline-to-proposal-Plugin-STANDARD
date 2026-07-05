@@ -1,7 +1,7 @@
 {
   "name": "pipeline-to-proposal",
-  "version": "0.4.3",
-  "description": "Local-first B2B sales helper for one salesperson: 30-second usage, adaptive sparse-data research, short Vietnamese-friendly outreach, proposal drafts, next-step coaching, proactive deal memory with direct-file fallback, and automatic feedback-to-stage/reply suggestions without bundled servers or hosted infrastructure.",
+  "version": "0.4.4",
+  "description": "Local-first B2B sales assistant for one salesperson: fast prospect research, short outreach drafts, proposal support, next-step coaching, and direct local deal memory updates with reply-aware follow-up suggestions.",
   "author": {
     "name": "Tommy",
     "email": "dinhminhphat212@gmail.com"

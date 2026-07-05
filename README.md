@@ -129,6 +129,12 @@ deal từ runtime plugin.
 
 ## Release Note
 
+Version `0.4.4`:
+
+- dùng `0.4.4` làm version chính thức của source folder hiện tại
+- giữ format package chuẩn để `.plugin` và `.zip` không lỗi path trong archive
+- cập nhật mô tả sản phẩm ngắn gọn hơn cho release/marketplace
+
 Version `0.4.3`:
 
 - local memory không còn phụ thuộc PowerShell: ưu tiên ghi markdown trực tiếp, rồi mới dùng script
