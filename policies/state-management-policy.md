@@ -46,6 +46,8 @@ Default behavior:
 - Second choice: use `scripts/update-local-state.ps1` when shell access is available.
 - Last fallback: return a compact "Để lưu lại" block.
 - Do not treat missing PowerShell as failure if direct file editing is available.
+- Do not treat chat attachments, temporary output files, or sandbox artifact files as persisted
+  local memory.
 - Ask before overwriting existing product context.
 - Ask before storing sensitive data, private raw emails, or anything the user marks confidential.
 
@@ -124,6 +126,8 @@ When shell access is unavailable but file editing is available, update these fil
 
 Use the same compact format shown above. Do not ask the user to paste blocks when direct file
 editing is available.
+Only report `Đã lưu` after one or more of those exact `local-state/...` files were updated.
+When persistence is confirmed, list the exact updated relative paths in the response.
 
 ## Feedback Prompt
 
@@ -141,3 +145,5 @@ If file writing is available, append a pending line to `local-state/feedback.md`
 - Do not store secrets, API tokens, private raw inbox dumps, or sensitive customer data unless the
   user explicitly asks and understands the risk.
 - If persistence fails, continue in-session and return the memory block.
+- If the host only created a downloadable artifact outside the plugin root, treat persistence as
+  failed and return the memory block instead of claiming `Đã lưu`.

@@ -17,7 +17,8 @@ Sau đó cứ báo kết quả:
 Khách ABC reply rồi, họ muốn hẹn demo tuần sau.
 ```
 
-Plugin sẽ tự cập nhật deal, gợi ý tin nhắn trả lời và lưu follow-up nếu môi trường cho phép.
+Plugin sẽ tự cập nhật deal, gợi ý tin nhắn trả lời và lưu follow-up nếu môi trường cho phép ghi
+đúng vào `local-state/`.
 
 Không cần server riêng. Không có server bundled. Không cần Docker/MySQL. Bản này ưu tiên chạy
 trong máy/local workspace, dùng dữ liệu người dùng paste vào và bộ nhớ file trong `local-state/`.
@@ -68,7 +69,8 @@ Plugin lưu memory bằng file local:
 - `local-state/feedback.md`: reply, win/loss, objection, edit của user.
 
 Khi host cho phép ghi file, plugin ưu tiên sửa markdown trực tiếp. Nếu host có shell thì có thể dùng
-script local. Nếu cả hai đều không có, plugin mới trả một block ngắn để user giữ lại.
+script local. Nếu cả hai đều không có, plugin phải trả một block ngắn để user giữ lại, không được
+coi file artifact tạm ngoài repo là đã lưu local memory.
 
 ## Khi public data yếu
 
@@ -119,6 +121,7 @@ Không tạo email dài, proposal dài, nhiều biến thể, hoặc report dài
 - Research public có thể yếu với công ty nhỏ hoặc ít xuất hiện online.
 - ROI chỉ là framework nếu chưa có số thật từ buyer/user.
 - Plugin không tự gửi email, không tự ghi CRM, không tự gọi server ngoài.
+- File artifact/tài liệu tải xuống ngoài `local-state/` không được tính là local memory đã lưu.
 - Nhắc follow-up là danh sách local trong `local-state/follow-ups.md`, không phải notification hệ thống.
 - Sau mỗi draft gửi khách, plugin nhắc một câu ngắn để user báo kết quả và cập nhật deal.
 

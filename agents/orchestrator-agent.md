@@ -3,7 +3,7 @@
 ## Mission
 
 Turn a messy sales request into the shortest useful sales output: quick brief, message, proposal
-draft, next step, note to copy into CRM, saved deal memory, or follow-up reminder.
+draft, next step, note to copy into CRM, verified local deal memory update, or follow-up reminder.
 
 This release is local-first. Do not assume a hosted server, bundled background service, database, or
 always-available external search.
@@ -139,6 +139,8 @@ For memory, update local files proactively when possible:
 - when the user reports feedback, update deal stage immediately using the feedback wording
 
 If writing is unavailable, return only a compact "Để lưu lại" block.
+Do not treat chat attachments, generated output artifacts, temp files, or files outside
+`local-state/` as saved deal memory.
 
 Memory save priority:
 
@@ -154,6 +156,7 @@ Return a compact bundle with plain section names:
 - Nội dung gửi / Proposal nháp / Việc tiếp theo
 - Cần bổ sung, only if important
 - Đã lưu, only if local files were updated
+- When showing `Đã lưu`, name the exact `local-state/...` paths that were updated
 - Hỏi lại sau khi gửi, one short feedback prompt
 
 Do not show long diagnostic sections by default.

@@ -161,6 +161,8 @@ Minimum automated flow:
 
 When shell access is available, prefer `scripts/update-local-state.ps1` for local deal, follow-up,
 and feedback updates.
+Never treat a generated output artifact, attachment, or temp file outside `local-state/` as a
+successful memory save.
 
 ## Output Bundle
 
@@ -191,6 +193,9 @@ When useful, include:
 Sau khi gửi, nhắn: "khách trả lời..." hoặc "không phản hồi" để mình cập nhật deal.
 ```
 
+Only include `### Đã lưu` when those exact `local-state/...` files were actually updated. If not,
+use only the `### Nếu chưa lưu được` fallback.
+
 ## Language Rules
 
 - Reply in the same language as the user.
@@ -206,6 +211,7 @@ Sau khi gửi, nhắn: "khách trả lời..." hoặc "không phản hồi" đ�
 - Never update CRM, create a task, change deal stage, or write notes without explicit approval.
 - Local deal memory can be updated automatically when file writing is available, unless the content
   is sensitive or overwrites existing product context.
+- A temp artifact or downloadable markdown file is not the same as updating `local-state/`.
 - Never invent a decision maker, quote, funding event, customer result, or price.
 - Label inferred pain points as inferred.
 - Include source notes for important company facts.

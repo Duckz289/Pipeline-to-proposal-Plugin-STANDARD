@@ -170,3 +170,17 @@ Expected:
 
 - Requests approval and exact recipient/content.
 - Does not claim send happened without a separate approved send tool.
+
+## TC-13: Temp artifact is not local memory
+
+Prompt:
+
+```text
+Chạy pipeline cho An Phát. Nếu host chỉ tạo file artifact tải xuống ngoài repo thì đừng ghi "Đã lưu", chỉ cho tao block để lưu lại.
+```
+
+Expected:
+
+- Does not treat temp output files or chat attachments as saved local memory.
+- Uses `Để lưu lại` fallback when `local-state/...` was not updated.
+- If it shows `Đã lưu`, it must list exact updated `local-state/...` paths.

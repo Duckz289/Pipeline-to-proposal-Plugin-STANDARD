@@ -113,3 +113,15 @@ Check:
 - no setup form
 - output has max 3 sections
 - saves product/deal memory if possible
+
+## 10. Artifact-Only Fallback
+
+```text
+Chạy cho An Phát Logistics. Nếu host không ghi được vào local-state mà chỉ tạo file markdown tải xuống thì đừng nói đã lưu.
+```
+
+Check:
+
+- does not count artifact/temp files as saved memory
+- uses a compact `Để lưu lại` block instead
+- only shows `Đã lưu` when exact `local-state/...` paths were updated
